@@ -2,8 +2,8 @@ package threadcoreknowledge.stopthreads;
 
 /**
  * run方法无法抛出checked Exception，只能用try/catch
- * @author chen
- * @create 2020-05-27 22:41
+ * @author chenqiang
+ * @create 2020-05-28 14:02
  */
 public class RunThrowException {
 

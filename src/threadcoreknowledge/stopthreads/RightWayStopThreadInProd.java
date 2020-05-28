@@ -2,14 +2,12 @@ package threadcoreknowledge.stopthreads;
 
 /**
  * 最佳实践：catch了InterruptedExcetion之后的优先选择：在方法签名中抛出异常 那么在run()就会强制try/catch
- *
- * @author chen
- * @create 2020-05-27 22:30
+ * @author chenqiang
+ * @create 2020-05-28 13:59
  */
-public class RightWarStopThreadInProd implements Runnable {
-
+public class RightWayStopThreadInProd implements Runnable{
     public static void main(String[] args) throws InterruptedException {
-        Thread thread = new Thread(new RightWarStopThreadInProd());
+        Thread thread = new Thread(new RightWayStopThreadInProd());
         thread.start();
         Thread.sleep(1000);
         thread.interrupt();
@@ -30,6 +28,6 @@ public class RightWarStopThreadInProd implements Runnable {
     }
 
     private void throwInMethod() throws InterruptedException {
-            Thread.sleep(2000);
+        Thread.sleep(2000);
     }
 }

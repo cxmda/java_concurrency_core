@@ -1,17 +1,16 @@
 package threadcoreknowledge.stopthreads;
 
 /**
- * 最佳实践：在catch语句中调用Thread.currentThread().interrupt()来恢复设置中断状态，
- * 以便于在后续的执行中，依然能够检查到刚才发生了中断回到刚才
- * RightWayStopThreadInProd补上中断，让它跳出
- *
- * @author chen
- * @create 2020-05-27 22:30
+ *  最佳实践：在catch语句中调用Thread.currentThread().interrupt()来恢复设置中断状态，
+ *  以便于在后续的执行中，依然能够检查到刚才发生了中断回到刚才
+ *  RightWayStopThreadInProd补上中断，让它跳出
+ * @author chenqiang
+ * @create 2020-05-28 14:00
  */
-public class RightWarStopThreadInProd2 implements Runnable {
+public class RightWayStopThreadInProd2 implements Runnable{
 
     public static void main(String[] args) throws InterruptedException {
-        Thread thread = new Thread(new RightWarStopThreadInProd2());
+        Thread thread = new Thread(new RightWayStopThreadInProd2());
         thread.start();
         Thread.sleep(1000);
         thread.interrupt();
