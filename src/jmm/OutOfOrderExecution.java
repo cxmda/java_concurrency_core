@@ -9,8 +9,8 @@ import java.util.concurrent.CountDownLatch;
  * @create 2020-06-02 11:37
  */
 public class OutOfOrderExecution {
-    private static int x = 0, y = 0;
-    private static int a = 0, b = 0;
+    private static volatile int x = 0, y = 0;
+    private static volatile int a = 0, b = 0;
 
     public static void main(String[] args) throws InterruptedException {
         int i = 0;
@@ -23,31 +23,25 @@ public class OutOfOrderExecution {
 
             CountDownLatch latch = new CountDownLatch(3);
 
-            Thread one = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        latch.countDown();
-                        latch.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    a = 1;
-                    x = b;
+            Thread one = new Thread(() -> {
+                try {
+                    latch.countDown();
+                    latch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                a = 1;
+                x = b;
             });
-            Thread two = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        latch.countDown();
-                        latch.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    b = 1;
-                    y = a;
+            Thread two = new Thread(() -> {
+                try {
+                    latch.countDown();
+                    latch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                b = 1;
+                y = a;
             });
             two.start();
             one.start();
